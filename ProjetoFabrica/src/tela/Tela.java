@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 public class Tela extends javax.swing.JFrame {
 
@@ -19,7 +20,9 @@ public class Tela extends javax.swing.JFrame {
     public Tela() {
         initComponents();
     }
-
+    
+    DefaultTableModel dmt_tabela;
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,12 +55,7 @@ public class Tela extends javax.swing.JFrame {
 
         jtb_tabelabanco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Chassi", "Ano", "Modelo", "Fabricante", "Potência"
@@ -235,6 +233,7 @@ public class Tela extends javax.swing.JFrame {
             carroADD.excluirCarro(chassi);
             
             ArrayList <Carro> lista = carroADD.mostraCarros();
+            
             
             limpar_tela();
             
