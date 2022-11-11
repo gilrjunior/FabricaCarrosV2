@@ -11,7 +11,7 @@ public class Conexao {
         
         try{
             
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/Local instance M","root","admwindows");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/poov","root","oeste0808");
             
         }catch(SQLException e){
             
