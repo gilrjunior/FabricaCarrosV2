@@ -17,12 +17,27 @@ public class Tela extends javax.swing.JFrame {
     /**
      * Creates new form Tela
      */
+    DefaultTableModel dtm_tabela;
+    CarroDAO carrroDAO;
+    
     public Tela() {
         initComponents();
+        
+        dtm_tabela = new DefaultTableModel(null, new String[]{"Chassi", "Ano", "Modelo", "Fabricante", "Potência"});
+    
+    try{
+    
+         carrroDAO = new CarroDAO();
+    
+    }catch (SQLException | ClassNotFoundException ex){
+    
+        System.out.println("\n Erro ao conectar: "+ex.toString());
+    
+    }
+        
     }
     
-    DefaultTableModel dmt_tabela;
-   
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -183,20 +198,8 @@ public class Tela extends javax.swing.JFrame {
         
         Carro carro =  new Carro(jtf_chassi.getText(), Integer.parseInt(jtf_ano.getText()), jtf_modelo.getText(), jtf_fabricante.getText(), Float.parseFloat(jtf_potencia.getText()));
        
-        try {
-            CarroDAO carroADD = new CarroDAO();
-            
-            carroADD.insertCarro(carro);
-            
-            ArrayList <Carro> lista = carroADD.mostraCarros();
-            
-            limpar_tela();
-            
-        } catch (SQLException ex) {
-            System.out.println("\n Erro na inserção: "+ex.toString());
-        } catch (ClassNotFoundException ex) {
-            System.out.println("\n Erro na inserção: "+ex.toString());
-        }
+        carrroDAO.insertCarro(carro);
+        limpar_tela();
         
     }//GEN-LAST:event_jbt_inserirActionPerformed
 
@@ -204,21 +207,8 @@ public class Tela extends javax.swing.JFrame {
         
         Carro carro =  new Carro(jtf_chassi.getText(), Integer.parseInt(jtf_ano.getText()), jtf_modelo.getText(), jtf_fabricante.getText(), Float.parseFloat(jtf_potencia.getText()));
        
-        try {
-            
-            CarroDAO carroADD = new CarroDAO();
-            
-            carroADD.updateCarro(carro);
-            
-            ArrayList <Carro> lista = carroADD.mostraCarros();
-            
-            limpar_tela();
-            
-        } catch (SQLException ex) {
-            System.out.println("\n Erro na inserção: "+ex.toString());
-        } catch (ClassNotFoundException ex) {
-            System.out.println("\n Erro na inserção: "+ex.toString());
-        }
+        carrroDAO.updateCarro(carro);
+        limpar_tela();
         
     }//GEN-LAST:event_jbt_atualizarActionPerformed
 
@@ -227,21 +217,8 @@ public class Tela extends javax.swing.JFrame {
         
         String chassi =  jtf_chassi.getText();
        
-        try {
-            CarroDAO carroADD = new CarroDAO();
-            
-            carroADD.excluirCarro(chassi);
-            
-            ArrayList <Carro> lista = carroADD.mostraCarros();
-            
-            
-            limpar_tela();
-            
-        } catch (SQLException ex) {
-            System.out.println("\n Erro na inserção: "+ex.toString());
-        } catch (ClassNotFoundException ex) {
-            System.out.println("\n Erro na inserção: "+ex.toString());
-        }
+        carrroDAO.excluirCarro(chassi);
+        limpar_tela();
     }//GEN-LAST:event_jbt_excluirActionPerformed
 
     private void limpar_tela(){
@@ -253,6 +230,23 @@ public class Tela extends javax.swing.JFrame {
         jtf_potencia.setText("");
         
     }
+    
+    public void atualizarTabela() throws SQLException , ClassNotFoundException{
+        
+        ArrayList <Carro> listacarros;
+        jtb_tabelabanco.setModel(dtm_tabela);
+        dtm_tabela.setNumRows(0);
+        listacarros = carrroDAO.mostraCarros();
+        
+        for(Carro carro : listacarros){
+            
+            dtm_tabela.addRow(new Object[]{carro.getChassi(), carro.getAno(), carro.getModelo(), carro.getFabricante(), carro.getPotencia()});
+            
+        }
+              
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
