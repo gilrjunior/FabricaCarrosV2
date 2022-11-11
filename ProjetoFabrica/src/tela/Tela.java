@@ -199,6 +199,15 @@ public class Tela extends javax.swing.JFrame {
         Carro carro =  new Carro(jtf_chassi.getText(), Integer.parseInt(jtf_ano.getText()), jtf_modelo.getText(), jtf_fabricante.getText(), Float.parseFloat(jtf_potencia.getText()));
        
         carrroDAO.insertCarro(carro);
+        
+        try {
+            atualizarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         limpar_tela();
         
     }//GEN-LAST:event_jbt_inserirActionPerformed
@@ -208,6 +217,15 @@ public class Tela extends javax.swing.JFrame {
         Carro carro =  new Carro(jtf_chassi.getText(), Integer.parseInt(jtf_ano.getText()), jtf_modelo.getText(), jtf_fabricante.getText(), Float.parseFloat(jtf_potencia.getText()));
        
         carrroDAO.updateCarro(carro);
+        
+        try {
+            atualizarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         limpar_tela();
         
     }//GEN-LAST:event_jbt_atualizarActionPerformed
@@ -218,6 +236,15 @@ public class Tela extends javax.swing.JFrame {
         String chassi =  jtf_chassi.getText();
        
         carrroDAO.excluirCarro(chassi);
+        
+        try {
+            atualizarTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Tela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         limpar_tela();
     }//GEN-LAST:event_jbt_excluirActionPerformed
 
